@@ -5,6 +5,12 @@ original idea from https://github.com/SkaveRat/ansishell which seems to be unmai
 
 ## setup
 
+clone this repo
+
+```git clone https://github.com/derveloper/assh```
+
+put the ```assh``` script in your ```$PATH```
+
 create a file in your ```$HOME``` named ```.assh```
 
 ```bash
