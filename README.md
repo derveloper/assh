@@ -27,7 +27,7 @@ ANSIBLE_INVENTORY_production="<your production environment inventory path>"
 
 ## usage
 
-```assh <host_group> [<inventory_alias>]```
+```./assh <host_group> [<inventory_alias>]```
 
 ## license
 
