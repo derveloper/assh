@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+source ~/.assh
+
+if [ -z "$1" ]
+  then
+    echo "Usage: $0 <host_group> [<inventory_alias>]"
+	exit 0
+fi
+
+if ! [ -x "$(command -v ansible)" ]; then
+  echo 'Error: ansible is not installed.' >&2
+  exit 1
+fi
+
+selected_alias=${2:-$ANSIBLE_DEFAULT_ALIAS}
+
+selected_inventory_var="ANSIBLE_INVENTORY_$selected_alias"
+selected_inventory="${!selected_inventory_var}"
+
+if [[ ! -f $selected_inventory ]] ; then
+    echo "File $selected_inventory is not there, aborting."
+    exit 1
+fi
+
+hosts=$(ansible $1 -i $selected_inventory --list-hosts 2> /dev/null | tail -n +2 | sed 's/^ *//;s/ *$//' | paste -sd " " -)
+
+exec $ASSH_CMD $hosts
+
