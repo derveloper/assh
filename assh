@@ -2,15 +2,14 @@
 
 source ~/.assh
 
-if [ -z "$1" ]
-  then
-    echo "Usage: $0 <host_group> [<inventory_alias>]"
+if [ -z "$1" ]; then
+	echo "Usage: $0 <host_group> [<inventory_alias>]" >&2
 	exit 0
 fi
 
 if ! [ -x "$(command -v ansible)" ]; then
-  echo 'Error: ansible is not installed.' >&2
-  exit 1
+	echo 'Error: ansible is not installed.' >&2
+	exit 1
 fi
 
 selected_alias=${2:-$ANSIBLE_DEFAULT_ALIAS}
@@ -19,7 +18,7 @@ selected_inventory_var="ANSIBLE_INVENTORY_$selected_alias"
 selected_inventory="${!selected_inventory_var}"
 
 if [[ ! -f $selected_inventory ]] ; then
-    echo "File $selected_inventory is not there, aborting."
+    echo "File $selected_inventory is not there, aborting." >&2
     exit 1
 fi
 
